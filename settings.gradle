@@ -9,4 +9,5 @@
 
 rootProject.name = 'Kotlin_Mp3Decoder'
 include 'mpeg_decoder'
+include 'test'
 
