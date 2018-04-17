@@ -21,3 +21,5 @@ src/main/kotlin/com/cg/decoder/mpeg/
 src/main/resources/
 src/test/java/
 src/test/resources/
+
+mpeg_decoder/out
