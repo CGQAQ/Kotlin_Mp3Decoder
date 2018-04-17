@@ -16,3 +16,8 @@ gradle-app.setting
 
 
 .idea
+src/main/java/
+src/main/kotlin/com/cg/decoder/mpeg/
+src/main/resources/
+src/test/java/
+src/test/resources/
