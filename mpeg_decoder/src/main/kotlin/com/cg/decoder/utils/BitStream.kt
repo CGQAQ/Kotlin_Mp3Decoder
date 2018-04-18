@@ -124,17 +124,5 @@ class BitStream {
         this.seek(pos)
     }
 
-    companion object {
-        enum class MASK(val data: Int) {
-            ONE(0x1),
-            TWO(0x3),
-            THREE(0x7),
-            FOUR(0xF),
-            FIVE(0x1F),
-            SIX(0x3F),
-            SEVEN(0x7F),
-            EIGHT(0xFF)
-        }
-    }
 
 }

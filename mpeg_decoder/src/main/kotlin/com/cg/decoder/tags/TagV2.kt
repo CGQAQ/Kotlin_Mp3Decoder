@@ -426,7 +426,7 @@ class TagV2(val bitStream: BitStream) : ITag {
                 parseHeader()
                 parseExtendedHeader()
                 while (bitStream.position() < this.size) {
-                    //It's ok to not minus 10(ID3tag Header size)
+                    //It's ok to not minus 10(ID3tag HeaderBean size)
                     parseFrame()
                 }
             } else {

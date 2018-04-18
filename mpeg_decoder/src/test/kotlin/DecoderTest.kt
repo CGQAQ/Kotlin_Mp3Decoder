@@ -1,3 +1,7 @@
+import com.cg.decoder.Decoder
+import com.cg.decoder.utils.BitStream
+import org.junit.Test
+
 /*
  *     Copyright (C)  2018  Jason<m.jason.liu@outlook.com> @CGQAQ
  *
@@ -17,6 +21,20 @@
  *     USA
  */
 
-package com.cg.decoder
+class DecoderTest {
+    @Test
+    fun testDecodeFrame(){
+        val bitStream = BitStream("test/test.mp3")
+        val decoder = Decoder(bitStream)
+        decoder.tagV1.printTag()
+        decoder.tagV2.printTag()
 
-//decoder
+        var str: String
+
+        while (true){
+            decoder.decodeFrame()
+            if (decoder.header.currentFrameHeader.valid()) break
+        }
+        println(decoder.header.currentFrameHeader.toString())
+    }
+}

@@ -19,11 +19,15 @@
 
 package com.cg.decoder
 
+import com.cg.decoder.beans.HeaderBean
 import com.cg.decoder.utils.BitStream
+import com.cg.decoder.utils.toInt
 
 class Header(val bitStream: BitStream) {
 
     private var _syncMask = 0xFFE0
+    lateinit var currentFrameHeader: HeaderBean
+        private set
 
     fun syncFrame(): Long{
         var d1 = bitStream.readBytes(1).get(0)
@@ -45,4 +49,24 @@ class Header(val bitStream: BitStream) {
         //var result = (d and _syncMask)
         return bitStream.position()
     }
+
+
+
+    fun parseFrameHeader(): Boolean{
+        val version = bitStream.readBits(2).toInt()
+        val layer = bitStream.readBits(2).toInt()
+        val protection = bitStream.readBits(1).toInt()
+        val bitrate = bitStream.readBits(4).toInt()
+        val samplingrate = bitStream.readBits(2).toInt()
+        val padding = bitStream.readBits(1).toInt()
+        val private = bitStream.readBits(1).toInt()
+        val channel = bitStream.readBits(2).toInt()
+        val modeext = bitStream.readBits(2).toInt()
+        val copyright = bitStream.readBits(1).toInt()
+        val original = bitStream.readBits(1).toInt()
+        val emphasis = bitStream.readBits(2).toInt()
+        this.currentFrameHeader = HeaderBean(version, layer, protection, bitrate, samplingrate, padding, private, channel, modeext, copyright, original, emphasis)
+        return currentFrameHeader.valid()
+    }
+
 }

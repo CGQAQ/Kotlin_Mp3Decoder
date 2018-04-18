@@ -19,27 +19,26 @@
 
 package com.cg.decoder.beans
 
-import java.nio.channels.FileChannel
 
-data class Header(val version: Int,
-                  val layer: Int,
-                  val protection: Int,
-                  val bitrate: Int,
-                  val samplingrate: Int,
-                  val padding: Int,
-                  val private: Int,
-                  val channelMode: Int,
-                  val modeExtension: Int,
-                  val copyright: Int,
-                  val original: Int,
-                  val emphasis: Int,
-                  val frameLength: Int = when (layer) {
+data class HeaderBean(val version: Int,
+                      val layer: Int,
+                      val protection: Int,
+                      val bitrate: Int,
+                      val samplingrate: Int,
+                      val padding: Int,
+                      val private: Int,
+                      val channelMode: Int,
+                      val modeExtension: Int,
+                      val copyright: Int,
+                      val original: Int,
+                      val emphasis: Int,
+                      val frameLength: Int = when (layer) {
                       in 1..2 -> {
-                          (12 * bitrate / samplingrate + padding) * 4
+                          if(samplingrate != 0) (12 * bitrate / samplingrate + padding) * 4 else 0
 
                       }
                       3 -> {
-                          144 * bitrate / samplingrate + padding
+                          if(samplingrate != 0)  144 * bitrate / samplingrate + padding else 0
 
                       }
                       else -> 0
@@ -122,6 +121,9 @@ data class Header(val version: Int,
     val originalTable: ArrayList<String> = arrayListOf("Copy of original media", "Original media")
     val emphasisTable: ArrayList<String> = arrayListOf("none", "50/15 ms", "reserved", "CCIT J.17")
 
+    fun valid(): Boolean{
+        return !(version == 1 || layer == 0 || bitrate == 0 || bitrate == 0xF || samplingrate == 0x3)
+    }
 
     override fun toString(): String {
         if (version == 1 || layer == 0 || bitrate == 0 || bitrate == 0xF || samplingrate == 0x3) {
