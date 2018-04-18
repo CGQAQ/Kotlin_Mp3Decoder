@@ -3,7 +3,7 @@ import com.cg.decoder.utils.BitStream
 import org.junit.Test
 
 /*
- *     Copyright (C)  2018  Jason<m.jason.liu@outlook.com> @CGQAQ
+ *     Copyright (C)  2018
  *
  *     This library is free software; you can redistribute it and/or
  *     modify it under the terms of the GNU Lesser General Public
@@ -31,10 +31,7 @@ class DecoderTest {
 
         var str: String
 
-        while (true){
-            decoder.decodeFrame()
-            if (decoder.header.currentFrameHeader.valid()) break
-        }
+        while (!decoder.decodeFrame());
         println(decoder.header.currentFrameHeader.toString())
     }
 }

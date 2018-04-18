@@ -47,8 +47,9 @@ class Decoder(val bitStream: BitStream){
         }
     }
 
-    fun decodeFrame(){
+    fun decodeFrame(): Boolean{
         header.syncFrame()
-        header.parseFrameHeader()
+        val valid = header.parseFrameHeader()
+        return valid && header.currentFrameHeader.layer == 1 && header.currentFrameHeader.version == 3
     }
 }
