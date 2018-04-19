@@ -23,7 +23,7 @@ import java.nio.ByteBuffer
 class CharsetTest {
     @Test
     fun decode() {
-        var src = byteArrayOf(68, 0, 101, 0, 115, 0, 112, 0, 97, 0, 99, 0, 105, 0, 116, 0, 111, 0)
+        val src = byteArrayOf(68, 0, 101, 0, 115, 0, 112, 0, 97, 0, 99, 0, 105, 0, 116, 0, 111, 0)
         val utf16 = charset("UTF-16LE")
         val raw = ByteBuffer.wrap(src)
         val a = utf16.decode(raw)
